@@ -13,7 +13,7 @@ def para_cata_project(ptot):
     end_number = 500
 
     # Pre-allocation
-    res = np.zeros((5, end_number))
+    res = []
     j = 7  # the location of postprocessing dataset
 
     # Parameters
@@ -128,15 +128,37 @@ def para_cata_project(ptot):
         initial_guess = [0.5, 0.5]
         theta = fsolve(SysEqs, initial_guess)
 
-        # Post-processing
-        L[0] = theta[0]
-        L[1] = theta[1]
+        # Post-processing with final theta values
+        theta_O, theta_N = theta[0], theta[1]
+
+        # Calculate omega values
+        omega_ad_O_val = omega_ad_O(theta_O, theta_N)
+        omega_ad_N_val = omega_ad_N(theta_O, theta_N)
+
+        omega_ER_OO_val = omega_ER_OO(theta_O)
+        omega_ER_NN_val = omega_ER_NN(theta_N)
+        omega_ER_ON_val = omega_ER_ON(theta_N)
+        omega_ER_NO_val = omega_ER_NO(theta_O)
+
+        omega_LH_OO_val = omega_LH_OO(theta_O)
+        omega_LH_NN_val = omega_LH_NN(theta_N)
+        omega_LH_NO_val = omega_LH_NO(theta_O, theta_N)
+
+        omega_des_O_val = omega_des_O(theta_O)
+        omega_des_N_val = omega_des_N(theta_N)
+
+        # Calculate gamma values
+        gamma_OO = (omega_LH_OO_val + 2 * omega_ER_OO_val) / n_O
+        gamma_NN = (omega_LH_NN_val + 2 * omega_ER_NN_val) / n_N
+        gamma_ON = (omega_LH_NO_val + omega_ER_NO_val + omega_ER_ON_val) / n_O
+        gamma_NO = (omega_LH_NO_val + omega_ER_NO_val + omega_ER_ON_val) / n_N
 
 
 
-        res[0:5, i] = L
-        
-    return res
+         # Append results to the list as a row
+        res.append([theta_O, theta_N, gamma_OO, gamma_NN, gamma_ON, gamma_NO])
+
+    return np.array(res).T
 
 # Example usage
 ptot = 1e5

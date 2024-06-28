@@ -1,5 +1,7 @@
 import numpy as np
 from scipy.optimize import fsolve
+import matplotlib.pyplot as plt
+import pandas as pd
 
 def para_cata_project(ptot):
     # Constants
@@ -10,7 +12,7 @@ def para_cata_project(ptot):
     h = 6.62607015e-34  # Planck constant
 
     # Inputs
-    end_number = 500
+    end_number = 100
 
     # Pre-allocation
     res = []
@@ -69,6 +71,17 @@ def para_cata_project(ptot):
 
     # Initialization
     L = 0.5 * np.ones(5)
+    # Initialize a dictionary to store the results
+    res_dict = {
+        "theta_O": [],
+        "theta_N": [],
+        "T": [],
+        "x": [],
+        "gamma_OO": [],
+        "gamma_NN": [],
+        "gamma_ON": [],
+        "gamma_NO": []
+    }
 
     # Main Loop
     for i in range(end_number):
@@ -156,11 +169,42 @@ def para_cata_project(ptot):
 
 
          # Append results to the list as a row
-        res.append([theta_O, theta_N, gamma_OO, gamma_NN, gamma_ON, gamma_NO])
+        # Append results to the dictionary
+        res_dict["theta_O"].append(theta_O)
+        res_dict["theta_N"].append(theta_N)
+        res_dict["T"].append(T)
+        res_dict["x"].append(x)  # Include the appropriate value for x
+        res_dict["gamma_OO"].append(gamma_OO)
+        res_dict["gamma_NN"].append(gamma_NN)
+        res_dict["gamma_ON"].append(gamma_ON)
+        res_dict["gamma_NO"].append(gamma_NO)
+    # Convert the dictionary to a pandas DataFrame
+    res_df = pd.DataFrame(res_dict)
 
-    return np.array(res).T
+
+    return res_df
 
 # Example usage
-ptot = 1e5
+ptot = 1100
 
 res = para_cata_project(ptot)
+
+
+# Plotting
+plt.figure(figsize=(10, 6))
+plt.semilogy(res['x'], res['gamma_OO'], label='gamma_OO')
+plt.semilogy(res['x'], res['gamma_NN'], label='gamma_NN')
+plt.semilogy(res['x'], res['gamma_ON'], label='gamma_ON')
+plt.semilogy(res['x'], res['gamma_NO'], label='gamma_NO')
+
+plt.xlabel('1000 / T (K^-1)')
+plt.ylabel('Gamma Values')
+plt.title('Gamma Values vs. Inverse Temperature')
+plt.legend()
+plt.grid(True)
+
+# Set the axis range
+plt.xlim([0.3, 3])
+plt.ylim([1e-6, 1e0])
+
+plt.show()

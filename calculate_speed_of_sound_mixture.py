@@ -63,7 +63,7 @@ components = mass_fraction_to_mole_fraction(components)
 # Calculate mixture properties
 R_mix, gamma_mix = calculate_mixture_properties(components)
 
-# Example: Calculate the Mach number at 393 Kelvin for an object traveling at 4000 m/s
+# Example: Calculate the Mach number at XX Kelvin for an object traveling at xx m/s
 temperature_kelvin = 300
 object_speed = 2984  # speed of the object in m/s
 mach_number = calculate_mach_number_mixture(object_speed, temperature_kelvin, R_mix, gamma_mix)

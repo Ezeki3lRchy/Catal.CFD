@@ -1,6 +1,5 @@
 import math
 
-
 def mass_fraction_to_mole_fraction(components):
     """
     Convert mass fractions to mole fractions.

@@ -50,7 +50,7 @@ Q_erON = 2.0e+4 / Na
 delta = 5.0e-10  # mean distance between sites
 
 Qa_O = 4.998e+5 / Na  # J/molecule
-Qa_N = 5.308e+5 / Na #??? 5.308e+5
+Qa_N = 5.308e+5 / Na
 
 D_OO = 4.980e+5 / Na
 D_NN = 9.413e+5 / Na

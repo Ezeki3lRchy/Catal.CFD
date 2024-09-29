@@ -9,9 +9,7 @@ def load_parameters(param_file):
     spec.loader.exec_module(params)
     return params
 
-
 def calculate(temperatures, pressures, param_file):
-
     # Load parameters from the specified file
     params = load_parameters(param_file)
 

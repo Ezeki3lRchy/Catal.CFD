@@ -32,12 +32,13 @@ Q_erON = 2.0e+4 / Na
 
 delta = 5.0e-10  # mean distance between sites
 
-Qa_O = 4.998e+5 / Na  # J/molecule
-Qa_N = 5.308e+5 / Na
+# desorption use
+Qa_O = 2.998e+5 / Na  # J/molecule
+Qa_N = 2.308e+5 / Na
 
 D_OO = 2.550e+5 / Na
 D_NN = 3.113e+5 / Na
-D_NO = 6.251e+5 / Na  
+D_NO = 3.251e+5 / Na  
 
 Em_O = 1.591e+5 / Na
 Em_N = 2.362e+5 / Na

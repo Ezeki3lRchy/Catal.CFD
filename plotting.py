@@ -123,3 +123,39 @@ def plot_residuals_single_point(results, T, P):
     plt.title('Residuals from fsolve')
     plt.legend()
     plt.show()
+
+def plot_gamma_NN(results_list, pressures):
+    for i, results in enumerate(results_list):
+        inverse_T = 1000 / results['T']
+        plt.semilogy(inverse_T, results['gamma_NN'], label=f'P={pressures[i]} Pa')
+    
+    plt.xlabel('1000 / Temperature (1/K)')
+    plt.ylabel('Gamma NN')
+    plt.title('Gamma NN vs 1000/T')
+    plt.legend()
+    plt.grid(True, which="both", ls="--")
+    plt.show()
+    
+def save_results_to_csv(results_list, pressures, filename_prefix='results'):
+    for i, results in enumerate(results_list):
+        pressure = pressures[i]
+        filename = f"{filename_prefix}_P{pressure}.csv"
+        results.to_csv(filename, index=False)
+        print(f"Results for P={pressure} Pa saved to {filename}")
+
+def plot_gamma_OO_3d(results_list, pressures):
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    
+    for i, results in enumerate(results_list):
+        T = results['T']
+        P = [pressures[i]] * len(T)
+        gamma_OO = results['gamma_OO']
+        ax.plot(T, P, gamma_OO, label=f'P={pressures[i]} Pa')
+    
+    ax.set_xlabel('Temperature (K)')
+    ax.set_ylabel('Pressure (Pa)')
+    ax.set_zlabel('Gamma OO')
+    ax.set_title('Gamma OO vs Temperature and Pressure')
+    ax.legend()
+    plt.show()

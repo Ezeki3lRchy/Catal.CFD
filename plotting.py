@@ -27,8 +27,6 @@ def plot_multigamma(res, x_label=r'1000 / T  $[\mathrm{K}^{-1}]$', y_label='Reco
     legend = plt.legend(fontsize=16, frameon=True, framealpha=1, edgecolor='black', fancybox=False)
     legend.get_frame().set_linewidth(1)  # Set the legend border thickness
 
-
-
     # Set the linewidth of the x and y axes
     plt.gca().spines['top'].set_linewidth(2)
     plt.gca().spines['bottom'].set_linewidth(2)

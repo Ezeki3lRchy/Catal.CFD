@@ -9,9 +9,16 @@ def load_parameters(param_file):
     spec.loader.exec_module(params)
     return params
 
-def calculate(temperatures, pressures, param_file):
+def calculate(temperatures, pressures, param_file, CO=10/11, CN=1/11):
+    
+
+    
     # Load parameters from the specified file
     params = load_parameters(param_file)
+
+        # Use CO and CN from function arguments if provided, otherwise use from params
+    CO = CO if CO != 10/11 else params.get('C0', 10/11)
+    CN = CN if CN != 1/11 else params.get('CN', 1/11)
 
     # Initialize a dictionary to store the results
     res_dict = {
@@ -44,8 +51,8 @@ def calculate(temperatures, pressures, param_file):
             x = 1000 / T  # invT
 
             # partial pressure
-            p_O = p * params.C0  
-            p_N = p * params.CN
+            p_O = p * CO
+            p_N = p * CN
 
             # Flux of hitting surface
             n_O = p_O / (np.sqrt(2 * np.pi * params.mass_O * params.kB * T))  

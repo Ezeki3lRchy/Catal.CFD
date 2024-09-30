@@ -1,0 +1,23 @@
+def plot_gamma_vs_pressure(results_list, temperatures, y_label='gamma_OO'):
+    
+    plt.figure(figsize=(8, 6))
+    
+    for i, results in enumerate(results_list):
+        plt.loglog(results['P'], results['gamma_ON'], label=f'T={temperatures[i]} K')
+
+    
+    plt.xlabel('Pressure [Pa]', fontsize=20)
+    plt.ylabel('Recombination coefficient', fontsize=20)
+    #plt.title(f'{gamma_key} vs Pressure', fontsize=20)
+    plt.legend(fontsize=16, 
+               frameon=True, 
+               framealpha=1, 
+               edgecolor='black', 
+               fancybox=False, borderpad=0.3, labelspacing=0.2)
+    plt.grid(which='both', linestyle='--', linewidth=1)
+    plt.xscale('log')
+    plt.yscale('log')
+
+    apply_plot_formatting(r'1000 / T  $[\mathrm{K}^{-1}]$', y_label)
+    plt.savefig('gamma_vs_pressure.png', dpi=1000, bbox_inches='tight')
+    plt.show()

@@ -4,6 +4,7 @@ from matplotlib import rcParams
 from matplotlib.font_manager import FontProperties
 from matplotlib.ticker import AutoMinorLocator, LogLocator
 from matplotlib.ticker import ScalarFormatter, FormatStrFormatter
+import math
 # Define the path to the Times New Roman font on Windows
 font_properties = FontProperties(fname='C:\\Windows\\Fonts\\times.ttf')
 TICK_LABEL_SIZE = 16  # Increased tick label size
@@ -79,6 +80,7 @@ def plot_gamma_OO(results_list, pressures,
         plt.semilogy(results['x'], results['gamma_OO'], label=f'Pressure: {pressure} Pa')
 
     apply_plot_formatting(xlabel1, y_label, title)
+
     plt.xlim([0.3, 1])
     plt.ylim([1e-3, 1e-1])
     plt.savefig(f'{save_path}\\gamma_OO.png', dpi=1000, bbox_inches='tight')
@@ -202,3 +204,107 @@ def plot_gamma_ON(results_list, pressures, y_label='Recombination coefficient'):
     plt.savefig(f'{save_path}\\gamma_ON.png', dpi=1000, bbox_inches='tight')
     plt.show()
 
+def plot_gamma_OO_ratio(results_list, C0_values, y_label='Recombination coefficient'):
+    plt.figure(figsize=(8, 6))
+    
+    for i, results in enumerate(results_list):
+        inverse_T = 1000 / results['T']
+
+        CO_ratio = C0_values[i] * 100
+        CN_ratio = (1 - C0_values[i]) * 100
+        divisor = math.gcd(int(CO_ratio), int(CN_ratio))
+        CO_simplified = CO_ratio / divisor
+        CN_simplified = CN_ratio / divisor
+
+        plt.semilogy(results['T'], 
+                     results['gamma_OO'], 
+                     label=f'C0:CN = {CO_simplified:.0f}:{CN_simplified:.0f}'
+                     )
+        
+    apply_plot_formatting(xlabel1, y_label)
+
+    plt.xlim([300, 5000])
+    plt.ylim([1e-4, 1e-1])
+      
+    
+    plt.savefig(f'{save_path}\\gamma_ratio.png', dpi=1000, bbox_inches='tight')
+    plt.show()
+
+
+def plot_gamma_NN_ratio(results_list, C0_values, y_label='Recombination coefficient'):
+    plt.figure(figsize=(8, 6))
+    
+    for i, results in enumerate(results_list):
+        inverse_T = 1000 / results['T']
+
+        CO_ratio = C0_values[i] * 100
+        CN_ratio = (1 - C0_values[i]) * 100
+        divisor = math.gcd(int(CO_ratio), int(CN_ratio))
+        CO_simplified = CO_ratio / divisor
+        CN_simplified = CN_ratio / divisor
+
+        plt.semilogy(results['T'], 
+                     results['gamma_NN'], 
+                     label=f'C0:CN = {CO_simplified:.0f}:{CN_simplified:.0f}'
+                     )
+        
+    apply_plot_formatting(xlabel1, y_label)
+
+    plt.xlim([300, 5000])
+    plt.ylim([1e-4, 1e-1])
+      
+    
+    plt.savefig(f'{save_path}\\gamma_ratio_NN.png', dpi=1000, bbox_inches='tight')
+    plt.show()
+
+def plot_gamma_NO_ratio(results_list, C0_values, y_label='Recombination coefficient'):
+    plt.figure(figsize=(8, 6))
+    
+    for i, results in enumerate(results_list):
+        inverse_T = 1000 / results['T']
+
+        CO_ratio = C0_values[i] * 100
+        CN_ratio = (1 - C0_values[i]) * 100
+        divisor = math.gcd(int(CO_ratio), int(CN_ratio))
+        CO_simplified = CO_ratio / divisor
+        CN_simplified = CN_ratio / divisor
+
+        plt.semilogy(results['T'], 
+                     results['gamma_NO'], 
+                     label=f'C0:CN = {CO_simplified:.0f}:{CN_simplified:.0f}'
+                     )
+        
+    apply_plot_formatting(xlabel1, y_label)
+
+    plt.xlim([300, 5000])
+    plt.ylim([1e-4, 1e-1])
+      
+    
+    plt.savefig(f'{save_path}\\gamma_ratio_NO.png', dpi=1000, bbox_inches='tight')
+    plt.show()
+
+def plot_gamma_ON_ratio(results_list, C0_values, y_label='Recombination coefficient'):
+    plt.figure(figsize=(8, 6))
+    
+    for i, results in enumerate(results_list):
+        inverse_T = 1000 / results['T']
+
+        CO_ratio = C0_values[i] * 100
+        CN_ratio = (1 - C0_values[i]) * 100
+        divisor = math.gcd(int(CO_ratio), int(CN_ratio))
+        CO_simplified = CO_ratio / divisor
+        CN_simplified = CN_ratio / divisor
+
+        plt.semilogy(results['T'], 
+                     results['gamma_ON'], 
+                     label=f'C0:CN = {CO_simplified:.0f}:{CN_simplified:.0f}'
+                     )
+        
+    apply_plot_formatting(xlabel1, y_label)
+
+    plt.xlim([300, 5000])
+    plt.ylim([1e-4, 1e-1])
+      
+    
+    plt.savefig(f'{save_path}\\gamma_ratio_ON.png', dpi=1000, bbox_inches='tight')
+    plt.show()

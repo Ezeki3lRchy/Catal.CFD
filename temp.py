@@ -1,7 +1,7 @@
 import numpy as np
 import solver
 import importlib
-import plotting as g
+import postprocess as g
 importlib.reload(g)
 
 importlib.reload(solver)
